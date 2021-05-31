@@ -2,9 +2,14 @@ ul {
   padding: 0px;
   margin: 0px;
 }
+
+label {
+  margin-right: 20px;
+}
+
 .input-country {
-  display: block;
-  margin: auto;
+  display: flex;
+  justify-content: center;
 }
 
 .js-card-container {

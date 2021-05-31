@@ -8,20 +8,24 @@ import * as PNotifyMobile from '../node_modules/@pnotify/mobile/dist/PNotifyMobi
 import '@pnotify/core/dist/BrightTheme.css';
 
 PNotify.defaultModules.set(PNotifyMobile, {});
-var debounce = require('../node_modules/lodash.debounce');
+import debounce from '../node_modules/lodash.debounce';
 
 const refs = getRefs();
 refs.searchForm.addEventListener('input', debounce(onSearch, 500));
 
 function onSearch(event) {
+  refs.cardContainer.innerHTML = '';
   const input = event.target;
   const searchQuery = input.value;
-
+  if (!searchQuery) {
+    return;
+  }
   API.fetchCountries(searchQuery).then(renderCountryCard).catch(onFetchError);
 }
 
 function renderCountryCard(country) {
-  refs.cardContainer.innerHTML = '';
+  // console.log(country.status);
+  // refs.cardContainer.innerHTML = '';
   if (country.length > 10) {
     PNotify.error({
       text: 'Too many matches found. Please enter a more specific query!',
