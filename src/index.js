@@ -24,14 +24,15 @@ function onSearch(event) {
 }
 
 function renderCountryCard(country) {
-  // console.log(country.status);
-  // refs.cardContainer.innerHTML = '';
+  if (country.status === 404) {
+    onFetchError(country.message);
+  }
   if (country.length > 10) {
     PNotify.error({
       text: 'Too many matches found. Please enter a more specific query!',
     });
   }
-  if (country.length > 2 && country.length < 10) {
+  if (country.length >= 2 && country.length <= 10) {
     makeItems(country);
   }
 
@@ -43,7 +44,7 @@ function renderCountryCard(country) {
 function onFetchError(error) {
   PNotify.error({
     title: 'Oh No!',
-    text: 'Something terrible happened.',
+    text: `${error}`,
   });
 }
 
